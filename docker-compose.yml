@@ -1,0 +1,9 @@
+services:
+  next-dev:
+    build: .
+    volumes:
+      - ./my-app:/app
+    ports:
+      - "3000:3000"
+    working_dir: /app
+    tty: true

@@ -1,0 +1,11 @@
+my-app/.next
+my-app/node_modules
+my-app/.env
+my-app/.env.local
+my-app/*.log
+*.md
+.git
+.vscode
+Dockerfile*
+docker-compose*
+.dockerignore
