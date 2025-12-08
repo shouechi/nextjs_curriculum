@@ -10,6 +10,12 @@ export default function Header() {
         <Link href="/" className="rounded px-4 py-2 text-white transition-all hover:bg-blue-700">
           Hone
         </Link>
+        <Link
+          href="/blog"
+          className="rounded px-4 py-2 text-white transition-all hover:bg-blue-700"
+        >
+          Blog
+        </Link>
         <Link href="/about" className='rounded px-4 py-2 text-white transition-all hover:bg-blue-700'>
           About
         </Link>
