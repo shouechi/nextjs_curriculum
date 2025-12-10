@@ -1,4 +1,6 @@
+import PostList from "@/app/blog/_components/post-list";
 import { Post } from "@/types/post";
+import { Ruthie } from "next/font/google";
 
 export async function feachPosts(): Promise<Post[]> {
   return [
@@ -21,4 +23,9 @@ export async function feachPosts(): Promise<Post[]> {
       content: 'App Routerの使い方について解説します。',
     }
   ]
+}
+
+export async function getPostById(id: string): Promise<Post | undefined> {
+  const posts = await feachPosts()
+  return posts.find((post) => post.id === id)
 }
