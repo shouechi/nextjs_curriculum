@@ -1,6 +1,7 @@
 'use client'
 
 import { Post } from "@/types/post"
+import Link from "next/link"
 import { useState } from "react"
 
 type Props = {
@@ -35,8 +36,16 @@ export default function PostList({ posts }: Props) {
             className="flex items-center justify-between rounded border border-gray-200 p-4 shadow-sm"
           >
             <div>
-              <h2 className="text-lg font-semibold">{post.title}</h2>
-              <p className="text-sm text-gray-500">{post.date}</p>
+              <div>
+                {/* <h2> タグを <Linkタグ>に修正 */}
+                <Link
+                  href={`/blog/${post.id}`}
+                  className="text-lg font-semibold text-blue-600 hover:cursor-pointer hover:underline"
+                >
+                  {post.title}
+                </Link>
+                <p className="text-sm text-gray-500">{post.date}</p>
+              </div>
             </div>
             <button
               onClick={() => handleLike(post.id)}
