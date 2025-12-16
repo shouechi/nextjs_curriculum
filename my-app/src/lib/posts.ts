@@ -9,7 +9,7 @@ export async function fetchPost(): Promise<Post[]> {
   return JSON.parse(data)
 }
 
-export async function getPosById(id: string): Promise<Post | undefined> {
+export async function getPostById(id: string): Promise<Post | undefined> {
   const posts = await fetchPost()
   return posts.find((post) => post.id === id)
 }
