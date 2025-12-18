@@ -27,7 +27,7 @@ export default function PostForm() {
           name="title"
           placeholder="タイトル"
           className="w-full rounded border border-gray-300 p-2 focus:border-blue-500 focus:ring focus:outline-none"
-        />
+          required/>
       </div>
 
       <div>
@@ -43,7 +43,7 @@ export default function PostForm() {
           placeholder="内容"
           rows={6}
           className="w-full rounded border border-gray-300 p-2 focus:border-blue-500 focus:ring focus:outline-none"
-        />
+          required/>
       </div>
 
       {state.error && <div className="text-sm text-red-600">{state.error}</div>}
