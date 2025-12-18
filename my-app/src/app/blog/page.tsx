@@ -1,8 +1,8 @@
-import { feachPosts } from "@/lib/posts";
+import { fetchPost } from "@/lib/posts";
 import PostList from "./_components/post-list"
 
 export default async function BlogPage() {
-  const posts = await feachPosts()
+  const posts = await fetchPost()
 
   return (
     <div className="mx-auto max-w-3xl p-6">
