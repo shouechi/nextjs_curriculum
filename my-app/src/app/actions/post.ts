@@ -44,3 +44,44 @@ export async function createPost(
 
   redirect('/blog')
 }
+
+export async function updatePost(
+  _prevState: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const id = formData.get('id') as string
+  const title = formData.get('title') as string
+  const content = formData.get('content') as string
+
+  if (!id || !title || !content) {
+    return { error: 'すべての項目を入力してください。' }
+  }
+
+  const data = await fs.readFile(filePath, 'utf-8')
+  const posts: Post[] = JSON.parse(data)
+
+  const updatedPosts = posts.map((post) =>
+    post.id === id ? { ...post, title, content } : post,
+  )
+
+  try {
+    await fs.writeFile(filePath, JSON.stringify(updatedPosts, null, 2), 'utf-8')
+  } catch {
+    return { error: '更新に失敗しました。' }
+  }
+  redirect('/blog')
+}
+
+export async function deletePost(id: string) {
+  const data = await fs.readFile(filePath, 'utf-8')
+  const posts: Post[] = JSON.parse(data)
+  const updatedPosts = posts.filter((post) => post.id !== id)
+
+  try {
+    await fs.writeFile(filePath, JSON.stringify(updatedPosts, null, 2), 'utf-8')
+  } catch {
+    return { error: '削除に失敗しました。' }
+  }
+
+  redirect('/blog')
+}

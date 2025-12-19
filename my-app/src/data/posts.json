@@ -1,11 +1,5 @@
 [
   {
-    "id": "1",
-    "title": "Next.jsの基礎",
-    "date": "2024-06-01",
-    "content": "Next.jsの基礎内容です。"
-  },
-  {
     "id": "2",
     "title": "Server/Client Componentの違い",
     "date": "2024-02-10",

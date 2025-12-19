@@ -1,19 +1,32 @@
 'use client'
-import { createPost } from '@/app/actions/post'
 import { useActionState } from 'react'
+import { createPost, updatePost } from '@/app/actions/post'
 
-export default function PostForm() {
-  const initialSate = { error: undefined }
+type Props = {
+  type: 'create' | 'edit'
+  initialValues?: {
+    id?: string
+    title: string
+    content: string
+  }
+}
+export default function PostForm({ type, initialValues }: Props) {
+  const initialState = { error: undefined }
   const [state, formAction, isPending] = useActionState(
-    createPost,
-    initialSate,
+    type === 'create' ? createPost : updatePost,
+    initialState,
   )
   return (
     <form
       action={formAction}
       className="mx-auto max-w-xl space-y-4 rounded border border-gray-200 bg-white p-6 shadow"
     >
-      <h2 className="text-2xl font-semibold text-gray-800">新規投稿</h2>
+      {type === 'edit' && initialValues?.id && (
+        <input type="hidden" name="id" value={initialValues.id} />
+      )}
+      <h2 className="text-2xl font-semibold text-gray-800">
+        {type === 'create' ? '新規投稿' : '投稿を編集'}
+      </h2>
 
       <div>
         <label
@@ -26,8 +39,10 @@ export default function PostForm() {
           id="title"
           name="title"
           placeholder="タイトル"
+          defaultValue={initialValues?.title ?? ''}
           className="w-full rounded border border-gray-300 p-2 focus:border-blue-500 focus:ring focus:outline-none"
-          required/>
+          required
+        />
       </div>
 
       <div>
@@ -41,18 +56,28 @@ export default function PostForm() {
           id="content"
           name="content"
           placeholder="内容"
+          defaultValue={initialValues?.content ?? ''}
           rows={6}
           className="w-full rounded border border-gray-300 p-2 focus:border-blue-500 focus:ring focus:outline-none"
-          required/>
+          required
+        />
       </div>
 
-      {state.error && <div className="text-sm text-red-600">{state.error}</div>}
+      {state.error && (
+        <div className="mb-2 text-sm text-red-600">{state.error}</div>
+      )}
       <button
         type="submit"
-        className="w-full rounded bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
         disabled={isPending}
+        className="bg-blue-500 px-4 py-2 text-white"
       >
-        {isPending ? '投稿中...' : '投稿する'}
+        {isPending
+          ? type === 'create'
+            ? '投稿中...'
+            : '更新中...'
+          : type === 'create'
+            ? '投稿する'
+            : '更新する'}
       </button>
     </form>
   )
